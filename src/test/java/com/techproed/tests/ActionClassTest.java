@@ -4,15 +4,16 @@ import com.techproed.utilities.TestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
 
 public class ActionClassTest extends TestBase {
 
     @Test
-    public void sagTiklama(){
+    public void sagTiklama() {
         driver.get("https://the-internet.herokuapp.com/context_menu");
-        WebElement element= driver.findElement(By.id("hot-spot"));
+        WebElement element = driver.findElement(By.id("hot-spot"));
         Actions actions = new Actions(driver);
         // bir webelement'e sağ tıklamak için bu kodu kullanırız.
         // actions class ile işlem yaparsanız, HER SEFERİNDE "PERFORM" yapmak zorundasınız.
@@ -20,7 +21,7 @@ public class ActionClassTest extends TestBase {
     }
 
     @Test
-    public void ciftTiklama(){
+    public void ciftTiklama() {
         driver.get("http://demo.guru99.com/test/simple_context_menu.html");
         WebElement button = driver.findElement(By.xpath("//button[@ondblclick='myFunction()']"));
         Actions actions = new Actions(driver);
@@ -28,8 +29,9 @@ public class ActionClassTest extends TestBase {
         // methodunu kullanabiliriz.
         actions.doubleClick(button).perform();
     }
+
     @Test
-    public void hoverOver(){
+    public void hoverOver() {
         driver.get("http://amazon.com");
         WebElement menu = driver.findElement(By.id("nav-link-accountList"));
         Actions actions = new Actions(driver);
@@ -37,8 +39,9 @@ public class ActionClassTest extends TestBase {
         // moveToElement methodunu kullabiliriz.
         actions.moveToElement(menu).perform();
     }
+
     @Test
-    public void asagiYukari(){
+    public void asagiYukari() {
         driver.get("http://amazon.com");
         Actions actions = new Actions(driver);
         actions.sendKeys(Keys.PAGE_DOWN).perform();
@@ -54,5 +57,39 @@ public class ActionClassTest extends TestBase {
             e.printStackTrace();
         }
         actions.sendKeys(Keys.PAGE_UP).perform();
+
+    }
+
+    @Test
+    public void buyukKucukYazma() {
+        // MERHABA nasılsınız LIVE channel
+        driver.get("http://google.com");
+        //name="q"
+        WebElement aramaKutusu= driver.findElement(By.name("q"));
+
+
+        //bu standart yazma methodumuz
+        //aramaKutusu.sendKeys("merhaba nasilsiniz live channel");
+
+
+        //bu sekulde her karakteri buyuk yazar
+        //aramaKutusu.sendKeys(Keys.SHIFT + "merhaba nasilsiniz");
+
+        Actions actions =new Actions(driver);
+        actions.moveToElement(aramaKutusu).click()
+                .keyDown(Keys.SHIFT)
+                .sendKeys("merhaba")
+                .keyUp(Keys.SHIFT)
+                .sendKeys(" nasilsiniz")
+                .perform();
+    }
+    @Test
+    public void dragAndDrop () {//surukle birak
+        driver.get("http://google.com");
+        WebElement aramakutusu = driver.findElement(By.name("q"));
+        WebElement logo =driver.findElement(By.id("hplogo"));
+        Actions actions=new Actions(driver);
+        //logo webelementini arama kutusuna surukle birak
+        actions.dragAndDrop(logo ,aramakutusu).perform();
     }
 }
