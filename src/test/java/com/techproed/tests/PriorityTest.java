@@ -10,28 +10,35 @@ import org.testng.annotations.Test;
 import java.util.concurrent.TimeUnit;
 
 public class PriorityTest {
+
     WebDriver driver;
     @BeforeClass
     public void setUp(){
         WebDriverManager.chromedriver().setup();
-        driver=new ChromeDriver();
+        driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
+
     @Test (priority = 1)
-    public void dropdownTest(){
+    public void dropDownTest01(){
         driver.get("http://amazon.com");
+
     }
+
     @Test (priority = 0)
-    public void googleAramaTest(){
+    public void googleAramaTest02(){
         driver.get("http://google.com");
     }
+
     @Test (priority = 2)
-    public void baslikTest(){
+    public void baslikTesti03(){
         driver.get("http://facebook.com");
     }
+
     @AfterClass
     public void tearDown(){
         driver.quit();
     }
+
 }

@@ -1,13 +1,25 @@
 package com.techproed.smoketests;
+
 import com.techproed.pages.GlbSignUpPage;
 import com.techproed.utilities.ConfigurationReader;
 import com.techproed.utilities.Driver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
 public class GlbSignUpTest {
-    @Test
-    public void test(){
+
+    @BeforeSuite
+    public void beforeSuite(){
+        System.out.println("beforeSuite çalıştı");
+    }
+
+    @BeforeTest
+    public void beforeTest(){
+        System.out.println("beforeTest çalıştı");
+    }
+
+    @Test  ( groups = "glbtrader")
+    public void fhctrip(){
         /*
          * 1. Adım : https://www.glbtrader.com/register-2.html adresine gidelim
          * 2. Adım : GlbSignUpPage class'ından nesne üretip, webelementleri kullanalım.
@@ -17,6 +29,7 @@ public class GlbSignUpTest {
          * 5. Adım : Success yazısını görüp görmediğimi Assert ile doğrulayalım.
          *
          */
+
         //https://www.glbtrader.com/register-2.html
         Driver.getDriver().get(ConfigurationReader.getProperty("glb_login"));
         GlbSignUpPage glbSignUpPage = new GlbSignUpPage();
@@ -26,15 +39,20 @@ public class GlbSignUpTest {
         glbSignUpPage.passwordKutusu.sendKeys(ConfigurationReader.getProperty("glb_sifre"));
         glbSignUpPage.rePasswordKutusu.sendKeys(ConfigurationReader.getProperty("glb_sifre"));
         glbSignUpPage.signUpButonu.click();
+
         // signUp butonuna tıkladıktan sonra, Success!! yazısını hemen alabilir miyim ?
         System.out.println(glbSignUpPage.basariliYazisi.getText());
+
         boolean dogruMu = glbSignUpPage.basariliYazisi.getText().contains("Success");
         Assert.assertTrue(dogruMu);
+
     }
+
     @AfterClass
     public void tearDown(){
         // Driver class'ının içerisindeki closeDriver methodunu çağırmamız yeterli.
         // Driver'ı kapattık ve hafızadan sildik.
         Driver.closeDriver();
     }
+
 }

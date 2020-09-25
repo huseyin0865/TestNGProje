@@ -15,7 +15,7 @@ public class FhcTripHotelCreateTest extends TestBase {
         driver.findElement(By.id("Password")).sendKeys("Man1ager2!"+ Keys.ENTER);
     }
 
-    @Test
+    @Test (  groups = {"fhctrip", "hotelolusturma"} )
     public void test(){
         giris();
         FhcTripHotelCreatePage fhcTripHotelCreatePage = new FhcTripHotelCreatePage(driver);

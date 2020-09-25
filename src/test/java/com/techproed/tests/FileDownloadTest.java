@@ -10,54 +10,52 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class FileDownloadTest extends TestBase {
+
     @Test
-    public void dosyaVarmi (){
+    public void dosyaVarMi(){
         System.out.println(System.getProperty("user.dir"));
         System.out.println(System.getProperty("user.home"));
         String kullaniciDosyaYolu = System.getProperty("user.dir");
-        //C:\Users\CEM BULUT\IdeaProjects\TestNGProje\pom.xml
-        String pomXmlDosyaYolu =kullaniciDosyaYolu+ "/pom.xml";
+        // C:/Users/isimsiz/IdeaProjects/TestNGProje/pom.xml
+        String pomXmlDosyaYolu = kullaniciDosyaYolu +"/pom.xml";
         boolean varMi = Files.exists(Paths.get(pomXmlDosyaYolu));
         Assert.assertTrue(varMi);
     }
+
     @Test
-    public void dosyaUpload(){//bilgisayardan veb sayfasina dosya yuklame
-        //C:\Users\CEM BULUT\Desktop\selenium 15. ders\logo.png
+    public void dosyaUpload(){ // bilgisayardan websayfasına doysa yükleme
         driver.get("http://the-internet.herokuapp.com/upload");
-        WebElement dosyaYukle = driver.findElement(By.id("file-upload"));
-        dosyaYukle.sendKeys("C:/Users/CEM BULUT/Desktop/selenium 15. ders/logo.png");
-        WebElement yukle =driver.findElement(By.id("file-submit"));
-        yukle.click();
-        WebElement fileUploadYazisi= driver.findElement(By.tagName("h3"));
-        Assert.assertTrue(fileUploadYazisi.isDisplayed());
+        WebElement dosyaSecmeButonu = driver.findElement(By.id("file-upload"));
+
+        // yüklemek istediğimiz dosyanın, path(dosya yolunu) ekleyelim.
+        dosyaSecmeButonu.sendKeys("C:/Users/isimsiz/upload/logo.png");
+        //dosyaSecmeButonu.sendKeys("C:\\Users\\isimsiz\\upload\\logo.png");
+
+        WebElement uploadButonu = driver.findElement(By.id("file-submit"));
+        uploadButonu.click();
+
+        WebElement fileUploadedYazisi = driver.findElement(By.tagName("h3"));
+
+        Assert.assertTrue(fileUploadedYazisi.isDisplayed());
+
     }
+
     @Test
     public void dosyaDownload(){
+        // C:\Users\isimsiz\Downloads\Amsterdam.jpg
         driver.get("http://the-internet.herokuapp.com/download");
-        //C:\Users\CEM BULUT\Downloads\Amsterdam.jpg
-
         WebElement amsterdamLinki = driver.findElement(By.partialLinkText("Amsterdam.jpg"));
         amsterdamLinki.click();
+
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        boolean varMi =Files.exists((Paths.get("C:\\Users\\CEM BULUT\\Downloads\\Amsterdam.jpg")));
-        Assert.assertTrue(varMi);
-        }
 
+        boolean varMi = Files.exists(Paths.get("C:\\Users\\isimsiz\\Downloads\\Amsterdam.jpg"));
+        Assert.assertTrue(varMi);
+
+    }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-

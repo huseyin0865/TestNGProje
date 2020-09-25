@@ -14,15 +14,16 @@ public class DependsOnMethodsTest {
     @BeforeClass
     public void setUp(){
         WebDriverManager.chromedriver().setup();
-        driver=new ChromeDriver();
+        driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
-    @Test (dependsOnMethods ="googleTest" )
+
+    @Test (dependsOnMethods = "googleTest")
     public void amazonTest(){
         driver.get("http://amazon.com");
     }
-    @Test(dependsOnMethods ="facebookTest" )
+    @Test (dependsOnMethods = "facebookTest")
     public void googleTest(){
         driver.get("http://google.com");
     }
@@ -35,5 +36,6 @@ public class DependsOnMethodsTest {
     public void tearDown(){
         driver.quit();
     }
+
 
 }
