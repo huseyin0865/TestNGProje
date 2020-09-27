@@ -1,4 +1,5 @@
 package com.techproed.utilities;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
@@ -8,15 +9,19 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+
 public abstract class TestBaseFinal {
+
     protected WebDriver driver;
     protected static ExtentReports extentReports;
     protected static ExtentTest extentTest;
     protected static ExtentHtmlReporter extentHtmlReporter;
     @BeforeTest(alwaysRun = true)
     public void setUpTest() {//This is how to set up Extent report. We will create and use this one in out test classes
+
         extentReports = new ExtentReports();//1. create object to set the location of the report
         String filePath = System.getProperty("user.dir") + "/test-output/myprojectreport.html";//create a custom report in the current project.
         //Folder name = test-output, File name = report.html
@@ -29,9 +34,13 @@ public abstract class TestBaseFinal {
         extentReports.setSystemInfo("Automation Engineer", "ENGINEER INFORMATION");
         extentHtmlReporter.config().setDocumentTitle("FHC Trip Reports");
         extentHtmlReporter.config().setReportName("FHC Trip Automation Reports");
+
     }
+
+
     @AfterMethod(alwaysRun = true)//In AfterMethod, we are getting the screenshots and attaching the report when test fails
     public void tearDownMethod(ITestResult result) throws IOException {
+
         if (result.getStatus() == ITestResult.FAILURE) {//When test case fails, then take the screenshot and attached the report
             String screenshotLocation = ReusableMethods.getScreenshot(result.getName());//getScreenshot is coming from ReusableMethods
             extentTest.fail(result.getName());
@@ -42,6 +51,8 @@ public abstract class TestBaseFinal {
         }
         Driver.closeDriver();
     }
+
+
     @AfterTest(alwaysRun = true)
     public void tearDownTest() {
         extentReports.flush();

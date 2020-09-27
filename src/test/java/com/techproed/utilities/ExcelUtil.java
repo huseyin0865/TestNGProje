@@ -1,4 +1,5 @@
 package com.techproed.utilities;
+
 import org.apache.poi.ss.usermodel.*;
 import org.testng.Assert;
 import java.io.FileInputStream;
@@ -7,12 +8,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-// We can use this excel utilities class to read and write excel files (for xls, xlsx files).
+
+
+        // We can use this excel utilities class to read and write excel files (for xls, xlsx files).
 // These are the reusable custom methods we can use in our test classes
+
 public class ExcelUtil {
+
     private Workbook workBook;
     private Sheet workSheet;
     private String path;
+
     public ExcelUtil(String path, String sheetName) {//This Constructor is to open and access the excel file
         this.path = path;
         try {
@@ -35,8 +41,8 @@ public class ExcelUtil {
     }
     //===============how do you get the last row number?Index start at 0.====================
     public int rowCount() {
-        return workSheet.getLastRowNum() + 1; //adding 1 to get the actual count
-    }
+        return workSheet.getLastRowNum() + 1; }//adding 1 to get the actual count
+
     //==============When you enter row and column number, then you get the data==========
     public String getCellData(int rowNum, int colNum) {
         Cell cell;
@@ -48,6 +54,7 @@ public class ExcelUtil {
             throw new RuntimeException(e);
         }
     }
+
     //============getting all data into two dimentional array and returning the data===
     public String[][] getDataArray() {
         String[][] data = new String[rowCount()][columnCount()];
@@ -59,13 +66,16 @@ public class ExcelUtil {
         }
         return data;
     }
+
     //This will get the list of the data in the excel file
     //This is a list of map. This takes the data as string and will return the data as a Map of String
     public List<Map<String, String>> getDataList() {
+
         // getting all columns
         List<String> columns = getColumnsNames();
         // method will return this
         List<Map<String, String>> data = new ArrayList<>();
+
         for (int i = 1; i < rowCount(); i++) {
             // get each row
             Row row = workSheet.getRow(i);
@@ -78,6 +88,7 @@ public class ExcelUtil {
             }
             data.add(rowMap);
         }
+
         return data;
     }
     //==============going to the first row and reading each row one by one==================//
@@ -88,6 +99,7 @@ public class ExcelUtil {
         }
         return columns;
     }
+
     //=========When you enter the row and column number, returning the value============//
     public void setCellData(String value, int rowNum, int colNum) {
         Cell cell;
